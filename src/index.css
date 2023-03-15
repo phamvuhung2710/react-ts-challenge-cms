@@ -30,3 +30,23 @@ body,
 ::-webkit-scrollbar-track:hover {
   background: #555;
 }
+
+.ps-menuitem-root a {
+  border-radius: 10px;
+  margin: 8px 10px;
+}
+
+.ps-menuitem-root a.ps-active {
+  color: #fff;
+  background-color: #393945;
+  border-radius: 10px;
+}
+
+.ps-menuitem-root a.ps-active:hover {
+  color: #fff;
+  background-color: #393945;
+}
+
+.nav-member .react-slidedown .ps-menuitem-root a.ps-active {
+  color: #003642;
+}

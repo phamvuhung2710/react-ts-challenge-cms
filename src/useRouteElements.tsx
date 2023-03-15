@@ -8,7 +8,7 @@ import NotFound from './pages/NotFound'
 import PATH from './constants/path'
 import Dashboard from './pages/Dashboard'
 import Setting from './pages/Setting'
-import Projects from './pages/Projects'
+import Projects, { AddProject, EditProject } from './pages/Projects'
 import Home from './pages/Home'
 
 function ProtectedRoute() {
@@ -66,7 +66,25 @@ export default function useRouteElements() {
             },
             {
               path: PATH.projects,
-              element: <Projects />
+              element: <Outlet />,
+              children: [
+                {
+                  path: '',
+                  element: <Projects />
+                },
+                {
+                  path: 'add',
+                  element: <AddProject />
+                },
+                {
+                  path: 'edit',
+                  element: <EditProject />
+                },
+                {
+                  path: '*',
+                  element: <NotFound />
+                }
+              ]
             },
             {
               path: '*',

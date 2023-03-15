@@ -7,6 +7,7 @@ import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
 import { AppProvider } from './contexts/app.context'
+import { ProSidebarProvider } from 'react-pro-sidebar'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
@@ -14,7 +15,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppProvider>
-          <App />
+          <ProSidebarProvider>
+            <App />
+          </ProSidebarProvider>
         </AppProvider>
       </ThemeProvider>
     </SnackbarProvider>

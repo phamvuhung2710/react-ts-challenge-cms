@@ -1,19 +1,15 @@
-import './App.css'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
 import { CssBaseline } from '@mui/material'
-import Topbar from './components/Topbar'
-import Sidebar from './components/Sidebar'
+import useRouteElements from './useRouteElements'
 
 function App() {
+  const routeElements = useRouteElements()
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className="app">
-        <main className="content">
-          <Topbar />
-          <Sidebar />
-        </main>
+        <main className="content">{routeElements}</main>
       </div>
     </ThemeProvider>
   )

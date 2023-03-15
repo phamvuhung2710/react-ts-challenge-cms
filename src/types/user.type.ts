@@ -1,8 +1,8 @@
 type Role = 'ADMIN' | 'MANAGER' | 'USER'
 
 export interface User {
-  id: string
+  id: number
   email: string
   name?: string
-  roles: Role[]
+  role: Role
 }

@@ -15,15 +15,28 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@fullcalendar/core": "^6.1.4",
+    "@fullcalendar/daygrid": "^6.1.4",
+    "@fullcalendar/list": "^6.1.4",
+    "@fullcalendar/timegrid": "^6.1.4",
+    "@hookform/resolvers": "^2.9.11",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.12",
     "@mui/styled-engine-sc": "^5.11.11",
+    "@nivo/bar": "^0.80.0",
+    "@nivo/core": "^0.80.0",
+    "@nivo/geo": "^0.80.0",
+    "@nivo/line": "^0.80.0",
+    "@nivo/pie": "^0.80.0",
+    "chart.js": "^4.2.1",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.5",
+    "react-pro-sidebar": "^1.0.0",
     "react-router-dom": "^6.9.0",
-    "styled-components": "^5.3.8"
+    "styled-components": "^5.3.8",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@types/node": "^18.15.1",
@@ -40,6 +53,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "msw": "^1.1.0",
     "prettier": "^2.8.4",
     "typescript": "^4.9.3",
     "vite": "^4.1.0"

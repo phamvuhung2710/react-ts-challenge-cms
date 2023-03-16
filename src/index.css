@@ -42,6 +42,10 @@ body,
   border-radius: 10px;
 }
 
+.ps-menuitem-root a span {
+  min-width: auto;
+}
+
 .ps-menuitem-root a.ps-active:hover {
   color: #fff;
   background-color: #393945;

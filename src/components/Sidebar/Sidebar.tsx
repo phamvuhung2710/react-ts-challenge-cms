@@ -1,14 +1,13 @@
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import InventoryIcon from '@mui/icons-material/Inventory'
 import LogoutIcon from '@mui/icons-material/Logout'
-import SettingsIcon from '@mui/icons-material/Settings'
-import { Box, Typography } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material'
 import { useContext } from 'react'
-import { Menu, MenuItem, Sidebar as ProSidebar, SubMenu } from 'react-pro-sidebar'
+import { Menu, MenuItem, Sidebar as ProSidebar, SubMenu, useProSidebar } from 'react-pro-sidebar'
 import { Link, useNavigate } from 'react-router-dom'
 import PATH from '~/constants/path'
 import { AppContext } from '~/contexts/app.context'
+import { routes } from '~/routes'
 import { clearLS } from '~/utils/auth'
+import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
 
 type ItemProps = {
   title: string
@@ -25,7 +24,10 @@ const Item = ({ title, to, icon }: ItemProps) => {
 }
 
 const Sidebar = () => {
+  const { collapseSidebar, collapsed } = useProSidebar()
+
   const { profile, setProfile, setIsAuthenticated } = useContext(AppContext)
+  const role = profile?.role
   const navigate = useNavigate()
 
   const handleLogout = () => {
@@ -35,26 +37,50 @@ const Sidebar = () => {
     clearLS()
   }
 
+  const renderMenu = () => {
+    const filteredMenus = routes
+    const menuElems = filteredMenus
+      .filter((route) => {
+        if (!role) return true
+        return route.roles.includes(role)
+      })
+      .map((route) => {
+        const { to, title, child } = route
+        if (child) {
+          return (
+            <SubMenu key={title.toLowerCase()} label={title} icon={<route.icon />}>
+              {child.map((sm) => (
+                <Item key={sm.title} title={sm.title} to={sm.to} />
+              ))}
+            </SubMenu>
+          )
+        }
+        return <Item key={title.toLowerCase()} title={title} icon={<route.icon />} to={to} />
+      })
+
+    menuElems.push(
+      <MenuItem icon={<LogoutIcon />} onClick={handleLogout}>
+        <Typography>Logout</Typography>
+      </MenuItem>
+    )
+
+    return menuElems
+  }
+
   return (
     <ProSidebar style={{ minHeight: '90vh', borderRadius: '8px' }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" ml="16px">
-        <Typography variant="h3" color="grey" gutterBottom sx={{ marginTop: 2 }}>
-          {profile?.name || ''}
-        </Typography>
-      </Box>
-      <Menu>
-        <Item title={'Dashboard'} icon={<DashboardIcon />} to={`/${PATH.admin}/${PATH.dashboard}`} />
-        <Item title={'Settings'} icon={<SettingsIcon />} to={`/${PATH.admin}/${PATH.setting}`} />
-        <SubMenu label="Projects" icon={<InventoryIcon />}>
-          <Item title={'Projects'} to={`/${PATH.admin}/${PATH.projects}`} />
-          <Item title={'Add Project'} to={`/${PATH.admin}/${PATH.projects}/add`} />
-          <Item title={'Edit Project'} to={`/${PATH.admin}/${PATH.projects}/edit`} />
-        </SubMenu>
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        {!collapsed && (
+          <Typography variant="h4" color="grey" gutterBottom sx={{ marginTop: 1 }}>
+            {profile?.name || ''}
+          </Typography>
+        )}
 
-        <MenuItem icon={<LogoutIcon />} onClick={handleLogout}>
-          <Typography>Logout</Typography>
-        </MenuItem>
-      </Menu>
+        <IconButton sx={collapsed ? { margin: 'auto' } : {}} onClick={() => collapseSidebar()}>
+          <MenuOutlinedIcon sx={{ fontSize: '30px' }} />
+        </IconButton>
+      </Box>
+      <Menu>{renderMenu()}</Menu>
     </ProSidebar>
   )
 }

@@ -1,7 +1,6 @@
 import { Box, Stack } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '~/components/Sidebar'
-// import Topbar from '~/components/Topbar'
 
 export default function AdminLayout() {
   return (
@@ -16,7 +15,6 @@ export default function AdminLayout() {
           width={'100%'}
           sx={{ backgroundColor: '#f5f5f5' }}
         >
-          {/* <Topbar /> */}
           <Outlet />
         </Box>
       </Stack>

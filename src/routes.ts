@@ -15,7 +15,7 @@ export const routes = [
     to: `/${PATH.admin}/${PATH.setting}`,
     icon: SettingsIcon,
     title: 'Settings',
-    roles: [ROLES.ADMIN]
+    roles: [ROLES.ADMIN, ROLES.MANAGER]
   },
   {
     to: `/${PATH.admin}/${PATH.projects}`,
@@ -25,15 +25,18 @@ export const routes = [
     child: [
       {
         title: 'Projects',
-        to: `/${PATH.admin}/${PATH.projects}`
+        to: `/${PATH.admin}/${PATH.projects}`,
+        roles: [ROLES.ADMIN, ROLES.MANAGER]
       },
       {
         title: 'Add Project',
-        to: `/${PATH.admin}/${PATH.projects}/add`
+        to: `/${PATH.admin}/${PATH.projects}/add`,
+        roles: [ROLES.ADMIN]
       },
       {
         title: 'Edit Project',
-        to: `/${PATH.admin}/${PATH.projects}/edit`
+        to: `/${PATH.admin}/${PATH.projects}/edit`,
+        roles: [ROLES.ADMIN]
       }
     ]
   }

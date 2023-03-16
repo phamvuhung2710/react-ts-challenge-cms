@@ -20,17 +20,19 @@ export default function ConfirmModal({
   onConfirmModalLogout
 }: ConfirmModalProps) {
   return (
-    <Dialog open={showConfirmModal} onClose={onCloseModalLogout} aria-labelledby="responsive-dialog-title">
-      <DialogTitle id="responsive-dialog-title">{'Logout'}</DialogTitle>
+    <Dialog fullWidth open={showConfirmModal} onClose={onCloseModalLogout} aria-labelledby="responsive-dialog-title">
+      <DialogTitle sx={{ fontSize: '20px', fontWeight: 700 }} id="responsive-dialog-title">
+        {'Logout'}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>Are you sure logout ?</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onCloseModalLogout}>
-          <CloseIcon />
+        <Button color="secondary" onClick={onCloseModalLogout}>
+          <CloseIcon /> Cancel
         </Button>
         <Button onClick={onConfirmModalLogout}>
-          <CheckIcon />
+          <CheckIcon /> OK
         </Button>
       </DialogActions>
     </Dialog>

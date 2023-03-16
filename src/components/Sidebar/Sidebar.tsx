@@ -1,8 +1,8 @@
 import LogoutIcon from '@mui/icons-material/Logout'
 import { Avatar, Box, IconButton, Typography } from '@mui/material'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Menu, MenuItem, Sidebar as ProSidebar, SubMenu, useProSidebar } from 'react-pro-sidebar'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import PATH from '~/constants/path'
 import { AppContext } from '~/contexts/app.context'
 import { routes } from '~/routes'
@@ -25,11 +25,11 @@ const Item = ({ title, to, icon }: ItemProps) => {
 }
 
 const Sidebar = () => {
-  const { collapseSidebar, collapsed } = useProSidebar()
+  const navigate = useNavigate()
 
+  const { collapseSidebar, collapsed } = useProSidebar()
   const { profile, setProfile, setIsAuthenticated } = useContext(AppContext)
   const role = profile?.role
-  const navigate = useNavigate()
 
   const [showConfirmModal, setShowConfirmModal] = useState(false)
 
@@ -52,7 +52,7 @@ const Sidebar = () => {
     const filteredMenus = routes
     const menuElems = filteredMenus
       .filter((route) => {
-        if (!role) return true
+        if (!role) return false
         return route.roles.includes(role)
       })
       .map((route) => {
@@ -60,9 +60,14 @@ const Sidebar = () => {
         if (child) {
           return (
             <SubMenu key={title.toLowerCase()} label={title} icon={<route.icon />}>
-              {child.map((sm) => (
-                <Item key={sm.title} title={sm.title} to={sm.to} />
-              ))}
+              {child
+                .filter((sm) => {
+                  if (!role) return false
+                  return sm.roles.includes(role)
+                })
+                .map((sm) => (
+                  <Item key={sm.title} title={sm.title} to={sm.to} />
+                ))}
             </SubMenu>
           )
         }

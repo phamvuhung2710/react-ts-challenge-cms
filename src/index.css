@@ -31,6 +31,10 @@ body,
   background: #555;
 }
 
+.ps-sidebar-root {
+  background: #f5f5f5 !important;
+}
+
 .ps-menuitem-root a {
   border-radius: 10px;
   margin: 8px 10px;

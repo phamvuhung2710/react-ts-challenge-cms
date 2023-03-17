@@ -1,15 +1,18 @@
-import { useContext } from 'react'
+import { useContext, lazy, Suspense } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
+import PATH from './constants/path'
 import { AppContext } from './contexts/app.context'
 import AdminLayout from './layouts/AdminLayout'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import NotFound from './pages/NotFound'
-import PATH from './constants/path'
-import Dashboard from './pages/Dashboard'
-import Setting from './pages/Setting'
-import Projects, { AddProject, EditProject } from './pages/Projects'
-import Home from './pages/Home'
+
+const Login = lazy(() => import('./pages/Login'))
+const Register = lazy(() => import('./pages/Register'))
+const Home = lazy(() => import('./pages/Home'))
+const Dashboard = lazy(() => import('./pages/Dashboard'))
+const Setting = lazy(() => import('./pages/Setting'))
+const Projects = lazy(() => import('./pages/Projects'))
+const AddProject = lazy(() => import('./pages/Projects/AddProject'))
+const EditProject = lazy(() => import('./pages/Projects/EditProject'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -30,7 +33,11 @@ export default function useRouteElements() {
       children: [
         {
           path: '',
-          element: <Home />
+          element: (
+            <Suspense>
+              <Home />
+            </Suspense>
+          )
         }
       ]
     },
@@ -40,11 +47,19 @@ export default function useRouteElements() {
       children: [
         {
           path: PATH.login,
-          element: <Login />
+          element: (
+            <Suspense>
+              <Login />
+            </Suspense>
+          )
         },
         {
           path: PATH.register,
-          element: <Register />
+          element: (
+            <Suspense>
+              <Register />
+            </Suspense>
+          )
         }
       ]
     },
@@ -96,7 +111,11 @@ export default function useRouteElements() {
     },
     {
       path: '*',
-      element: <NotFound />
+      element: (
+        <Suspense>
+          <NotFound />
+        </Suspense>
+      )
     }
   ])
   return routeElements

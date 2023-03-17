@@ -1,13 +1,12 @@
 import LogoutIcon from '@mui/icons-material/Logout'
-import { Avatar, Box, IconButton, Typography } from '@mui/material'
-import { useContext, useEffect, useState } from 'react'
-import { Menu, MenuItem, Sidebar as ProSidebar, SubMenu, useProSidebar } from 'react-pro-sidebar'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import PATH from '~/constants/path'
-import { AppContext } from '~/contexts/app.context'
-import { routes } from '~/routes'
-import { clearLS } from '~/utils/auth'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
+import { Avatar, Box, IconButton, Typography } from '@mui/material'
+import { useContext, useState } from 'react'
+import { Menu, MenuItem, Sidebar as ProSidebar, SubMenu, useProSidebar } from 'react-pro-sidebar'
+import { Link } from 'react-router-dom'
+import { AppContext } from '~/contexts/app.context'
+import { useLogout } from '~/hooks/useLogout'
+import { routes } from '~/routes'
 import ConfirmModal from '../ConfirmModal'
 
 type ItemProps = {
@@ -25,10 +24,9 @@ const Item = ({ title, to, icon }: ItemProps) => {
 }
 
 const Sidebar = () => {
-  const navigate = useNavigate()
-
+  const { onLogout } = useLogout()
   const { collapseSidebar, collapsed } = useProSidebar()
-  const { profile, setProfile, setIsAuthenticated } = useContext(AppContext)
+  const { profile } = useContext(AppContext)
   const role = profile?.role
 
   const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -38,10 +36,7 @@ const Sidebar = () => {
   }
 
   const onConfirmModalLogout = () => {
-    navigate(PATH.login)
-    setProfile(null)
-    setIsAuthenticated(false)
-    clearLS()
+    onLogout()
   }
 
   const onCloseModalLogout = () => {

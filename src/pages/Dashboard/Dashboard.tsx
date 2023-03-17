@@ -1,8 +1,9 @@
-import PersonAddIcon from '@mui/icons-material/PersonAdd'
-import CollectionsIcon from '@mui/icons-material/Collections'
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
+import CollectionsIcon from '@mui/icons-material/Collections'
+import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { Box, Typography } from '@mui/material'
-import StatBox from './../../components/StatBox/StatBox'
+import StatBox from '~/components/StatBox'
+
 
 export default function Dashboard() {
   return (

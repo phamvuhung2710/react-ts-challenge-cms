@@ -5,8 +5,7 @@ import { useSnackbar } from 'notistack'
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import StyledLink from '~/components/StyledLink'
-import PATH from '~/constants/path'
-import ROLES from '~/constants/roles'
+import PATH, { DEFAULT_PATH_ROLE } from '~/constants/path'
 import { AppContext } from '~/contexts/app.context'
 import { loginUserApi } from '~/mocks/mockApi'
 import { setAccessTokenToLS, setProfileToLS } from '~/utils/auth'
@@ -61,11 +60,7 @@ export default function Login() {
       enqueueSnackbar(result.message, { variant: 'success' })
 
       const role = user.role
-      if (role === ROLES.USER) {
-        navigate(PATH.home)
-      } else {
-        navigate(`/${PATH.admin}/${PATH.dashboard}`)
-      }
+      navigate(DEFAULT_PATH_ROLE[role])
     } catch (error: any) {
       enqueueSnackbar(error.message, { variant: 'error' })
     }
